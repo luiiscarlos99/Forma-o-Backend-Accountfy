@@ -1,9 +1,17 @@
 package com.accountfy.livros.entities;
 
 import java.math.BigDecimal;
+
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public class Livro {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titulo;
 	private int numeroDePaginas;
@@ -51,7 +59,6 @@ public class Livro {
 	}
 
 	public Livro(Long id, String titulo, int numeroDePaginas, Date publicadoEm, BigDecimal precoDeVenda) {
-		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.numeroDePaginas = numeroDePaginas;
@@ -60,7 +67,6 @@ public class Livro {
 	}
 
 	public Livro(String titulo, int numeroDePaginas, Date publicadoEm, BigDecimal precoDeVenda) {
-		super();
 		this.titulo = titulo;
 		this.numeroDePaginas = numeroDePaginas;
 		this.publicadoEm = publicadoEm;
