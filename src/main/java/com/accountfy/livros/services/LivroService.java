@@ -14,17 +14,45 @@ public class LivroService {
 	@Autowired
 	private LivroRepository repository;
 	
-	public List<Livro> findAll(){
+	public List<Livro> obterTodos(){
 		return repository.findAll();
 	}
 	
-	public Livro findById(Long id) {
+	public Livro encontrarPeloId(Long id) {
 		Optional<Livro> obj = repository.findById(id);
 		
 		return obj.get();
 	}
 	
-	public Long count(){
+	public Long contarTodos(){
 		return repository.count();
+	}
+	
+	public Boolean naoEstaVazio(){
+		Long count = repository.count();
+		if(count > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public Boolean estaVazio(){
+		Long count = repository.count();
+		if(count > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public void salvar(Livro obj) {
+		repository.save(obj);
+	}
+	
+	public void excluirPeloId(Long id) {
+		repository.deleteById(id);
 	}
 }

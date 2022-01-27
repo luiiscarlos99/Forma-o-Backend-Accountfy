@@ -29,5 +29,10 @@ public class TestConfig implements CommandLineRunner{
 		repository.saveAll(Arrays.asList(l1, l2));
 	}
 	
-	
+//	{
+//	    "titulo": "O Cortiço",
+//	    "numeroDePaginas": "567",
+//	    "publicadoEm": "2022-01-26",
+//	    "precoDeVenda": "30.00"
+//	}
 }
