@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.accountfy.livros.entities.Livro;
 import com.accountfy.livros.repositories.LivroRepository;
+import com.accountfy.livros.services.exceptions.RegistroNaoEncontradoException;
 
 @Service
 public class LivroService {
@@ -53,6 +55,11 @@ public class LivroService {
 	}
 	
 	public void excluirPeloId(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		}
+		catch(EmptyResultDataAccessException e){
+			throw new RegistroNaoEncontradoException(id);
+		}
 	}
 }
