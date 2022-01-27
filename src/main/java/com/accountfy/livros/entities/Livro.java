@@ -1,15 +1,20 @@
 package com.accountfy.livros.entities;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.accountfy.livros.AnoMes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Livro {
+	static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -79,7 +84,12 @@ public class Livro {
 		this.precoDeVenda = precoDeVenda;
 	}
 	
-	public String getAnoMesDePublicacao() {
-		return "";
-	}
+	public AnoMes getAnoMesDePublicacao() {
+        String dataFormatada = sdf.format(publicadoEm);
+        
+        AnoMes anoMes = new AnoMes(dataFormatada.substring(6, 10), dataFormatada.substring(3, 5));
+
+        return anoMes;
+
+    }
 }

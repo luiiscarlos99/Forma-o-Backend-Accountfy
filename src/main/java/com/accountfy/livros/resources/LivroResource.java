@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accountfy.livros.AnoMes;
 import com.accountfy.livros.entities.Livro;
 import com.accountfy.livros.services.LivroService;
 
@@ -51,6 +52,18 @@ public class LivroResource {
 		return ResponseEntity.ok().body(flag);
 	}
 	
+	@GetMapping(value = "/tituloContendo/{titulo}")
+	public ResponseEntity<List<Livro>> obterComTituloContendo(@PathVariable String titulo){
+		List<Livro> obj = service.obterComTituloContendo(titulo);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/publicadosEm")
+	public ResponseEntity<List<Livro>> obterPublicadosEm(@RequestBody List<AnoMes> ref){
+		List<Livro> obj = service.obterPublicadosEm(ref);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Void> salvar(@RequestBody Livro obj){
 		service.salvar(obj);
@@ -60,6 +73,18 @@ public class LivroResource {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> excluirPeloId(@PathVariable Long id){
 		service.excluirPeloId(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@DeleteMapping(value = "/excluirTodos")
+	public ResponseEntity<Void> excluirTodos(){
+		service.excluirTodos();
+		return ResponseEntity.noContent().build();
+	}
+	
+	@DeleteMapping
+	public ResponseEntity<Void> excluir(@RequestBody Livro obj){
+		service.excluir(obj);
 		return ResponseEntity.noContent().build();
 	}
 }

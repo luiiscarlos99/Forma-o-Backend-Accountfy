@@ -1,12 +1,13 @@
 package com.accountfy.livros.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.accountfy.livros.AnoMes;
 import com.accountfy.livros.entities.Livro;
 import com.accountfy.livros.repositories.LivroRepository;
 import com.accountfy.livros.services.exceptions.RegistroNaoEncontradoException;
@@ -18,6 +19,27 @@ public class LivroService {
 	
 	public List<Livro> obterTodos(){
 		return repository.findAll();
+	}
+	
+	public List<Livro> obterComTituloContendo(String titulo) {
+		List<Livro> obj = repository.findByTituloContaining(titulo);
+		return obj;
+	}
+	
+	public List<Livro> obterPublicadosEm(List<AnoMes> ref) {
+		List<Livro> obj = repository.findAll();
+		
+		List<Livro> lista = new ArrayList<Livro>();
+		
+		for(AnoMes am : ref) {
+			for(Livro l : obj) {
+				if(l.getAnoMesDePublicacao().getAno().equals(am.getAno()) && l.getAnoMesDePublicacao().getMes().equals(am.getMes())) {
+					lista.add(l);
+				}
+			}
+		}
+		
+		return lista;
 	}
 	
 	public Livro encontrarPeloId(Long id) {
@@ -58,8 +80,16 @@ public class LivroService {
 		try {
 			repository.deleteById(id);
 		}
-		catch(EmptyResultDataAccessException e){
+		catch(RuntimeException e){
 			throw new RegistroNaoEncontradoException(id);
 		}
+	}
+	
+	public void excluirTodos() {
+		repository.deleteAll();
+	}
+	
+	public void excluir(Livro obj) {
+		repository.delete(obj);
 	}
 }
