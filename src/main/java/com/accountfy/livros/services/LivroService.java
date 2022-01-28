@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.accountfy.livros.AnoMes;
+import com.accountfy.livros.entities.AnoMes;
 import com.accountfy.livros.entities.Livro;
 import com.accountfy.livros.repositories.LivroRepository;
 import com.accountfy.livros.services.exceptions.RegistroNaoEncontradoException;

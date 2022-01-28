@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.accountfy.livros.AnoMes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Livro {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.accountfy.livros.AnoMes;
+import com.accountfy.livros.entities.AnoMes;
 import com.accountfy.livros.entities.Livro;
 import com.accountfy.livros.services.LivroService;
 
