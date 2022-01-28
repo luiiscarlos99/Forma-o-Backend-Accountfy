@@ -58,8 +58,14 @@ public class LivroResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@GetMapping(value = "/publicadosEmList")
+	public ResponseEntity<List<Livro>> obterPublicadosEmV(@RequestBody List<AnoMes> ref){
+		List<Livro> obj = service.obterPublicadosEmV(ref);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@GetMapping(value = "/publicadosEm")
-	public ResponseEntity<List<Livro>> obterPublicadosEm(@RequestBody List<AnoMes> ref){
+	public ResponseEntity<List<Livro>> obterPublicadosEm(@RequestBody AnoMes ref){
 		List<Livro> obj = service.obterPublicadosEm(ref);
 		return ResponseEntity.ok().body(obj);
 	}

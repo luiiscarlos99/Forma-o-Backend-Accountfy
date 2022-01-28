@@ -16,79 +16,90 @@ import com.accountfy.livros.services.exceptions.RegistroNaoEncontradoException;
 public class LivroService {
 	@Autowired
 	private LivroRepository repository;
-	
-	public List<Livro> obterTodos(){
+
+	public List<Livro> obterTodos() {
 		return repository.findAll();
 	}
-	
+
 	public List<Livro> obterComTituloContendo(String titulo) {
 		List<Livro> obj = repository.findByTituloContaining(titulo);
 		return obj;
 	}
-	
-	public List<Livro> obterPublicadosEm(List<AnoMes> ref) {
+
+	public List<Livro> obterPublicadosEmV(List<AnoMes> ref) {
 		List<Livro> obj = repository.findAll();
-		
 		List<Livro> lista = new ArrayList<Livro>();
-		
-		for(AnoMes am : ref) {
-			for(Livro l : obj) {
-				if(l.getAnoMesDePublicacao().getAno().equals(am.getAno()) && l.getAnoMesDePublicacao().getMes().equals(am.getMes())) {
+
+		for (AnoMes am : ref) {
+			for (Livro l : obj) {
+				if (l.getAnoMesDePublicacao().getAno().equals(am.getAno())
+						&& l.getAnoMesDePublicacao().getMes().equals(am.getMes())) {
 					lista.add(l);
 				}
 			}
 		}
-		
+
 		return lista;
 	}
-	
+
+	public List<Livro> obterPublicadosEm(AnoMes ref) {
+		List<Livro> obj = repository.findAll();
+		List<Livro> lista = new ArrayList<Livro>();
+
+		for (Livro l : obj) {
+			if (l.getAnoMesDePublicacao().getAno().equals(ref.getAno())
+					&& l.getAnoMesDePublicacao().getMes().equals(ref.getMes())) {
+				lista.add(l);
+			}
+		}
+
+		return lista;
+	}
+
 	public Livro encontrarPeloId(Long id) {
 		Optional<Livro> obj = repository.findById(id);
-		
+
 		return obj.get();
 	}
-	
-	public Long contarTodos(){
+
+	public Long contarTodos() {
 		return repository.count();
 	}
-	
-	public Boolean naoEstaVazio(){
+
+	public Boolean naoEstaVazio() {
 		Long count = repository.count();
-		if(count > 0) {
+		if (count > 0) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	
-	public Boolean estaVazio(){
+
+	public Boolean estaVazio() {
 		Long count = repository.count();
-		if(count > 0) {
+		if (count > 0) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
-	
+
 	public void salvar(Livro obj) {
 		repository.save(obj);
 	}
-	
+
 	public void excluirPeloId(Long id) {
 		try {
 			repository.deleteById(id);
-		}
-		catch(RuntimeException e){
+		} catch (RuntimeException e) {
 			throw new RegistroNaoEncontradoException(id);
 		}
 	}
-	
+
 	public void excluirTodos() {
 		repository.deleteAll();
 	}
-	
+
 	public void excluir(Livro obj) {
 		repository.delete(obj);
 	}
