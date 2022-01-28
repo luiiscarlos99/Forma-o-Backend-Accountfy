@@ -26,7 +26,7 @@ public class LivroService {
 		return obj;
 	}
 
-	public List<Livro> obterPublicadosEmV(List<AnoMes> ref) {
+	public List<Livro> obterPublicadosEmList(List<AnoMes> ref) {
 		List<Livro> obj = repository.findAll();
 		List<Livro> lista = new ArrayList<Livro>();
 
