@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,10 +86,12 @@ public class LivroService {
 		}
 	}
 
+	@Transactional
 	public void salvar(Livro obj) {
 		repository.save(obj);
 	}
 
+	@Transactional
 	public void excluirPeloId(Long id) {
 		try {
 			repository.deleteById(id);
@@ -96,10 +100,12 @@ public class LivroService {
 		}
 	}
 
+	@Transactional
 	public void excluirTodos() {
 		repository.deleteAll();
 	}
 
+	@Transactional
 	public void excluir(Livro obj) {
 		repository.delete(obj);
 	}
